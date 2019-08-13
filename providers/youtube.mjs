@@ -1,6 +1,6 @@
 import ytdl from "ytdl-core";
 import { existsSync, createWriteStream } from "fs";
-import { resolve } from "path"
+import { resolve as pathResolve } from "path"
 
 export default class YouTube {
   static get providerName() {
@@ -13,7 +13,7 @@ export default class YouTube {
       if (!title) {
         title = `${Date.now()}`;
       }
-      let fullpath = resolve(path, `${title}.mp4`);
+      let fullpath = pathResolve(path, `${title}.mp4`);
 
       if (existsSync(fullpath)) {
         throw new Error(`File "${fullpath}" already exists`);
@@ -21,10 +21,8 @@ export default class YouTube {
 
       return new Promise((resolve, reject) => {
         const writeStream = createWriteStream(fullpath);
-        ytdl(url, {
-            filter: (format) => format.container === 'mp4'
-          })
-          .pipe(writeStream);
+        ytdl(url, { filter: (format) => format.container === 'mp4' }).pipe(writeStream);
+
         writeStream.on("finish", resolve);
         writeStream.on("error", (error) => {
           reject(error);
