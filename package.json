@@ -12,5 +12,11 @@
   },
   "devDependencies": {
     "eslint": "^6.1.0"
+  },
+  "bin": {
+    "vddw": "./index.mjs"
+  },
+  "scripts": {
+    "start": "node --experimental-modules index.mjs"
   }
 }

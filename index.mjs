@@ -57,8 +57,8 @@ const provider = new providerClass();
 readInterface.on("line", (url) => {
 
   provider.download(url, outputDirectory).then(() => {
-    console.log(`Done ${url}`);
+    console.log("Done".green + ` ${url}`.gray);
   }, (e) => {
-    console.log(`Error ${url}: ${e}`);
+    console.log("Error".red + ` ${url} `.gray + String(e).yellow);
   });
 });
